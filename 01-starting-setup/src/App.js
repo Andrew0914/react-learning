@@ -9,7 +9,7 @@ function App() {
     <div>
       <h2>Let's get started!</h2>
       <p>This also visible!</p>
-      <Expenses expenses={expenses} />
+      <Expenses items={expenses} />
     </div>
   );
 }
