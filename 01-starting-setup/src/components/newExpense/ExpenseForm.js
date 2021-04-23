@@ -47,6 +47,7 @@ function ExpenseForm(props) {
     setDate("");
     props.onSaveExpense(expenseData);
   };
+
   return (
     <form onSubmit={formSubmitHandler}>
       <div className="new-expense__controls">
