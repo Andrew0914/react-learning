@@ -6,6 +6,7 @@ function App() {
     { title: "Car insurance", price: 100.1, date: new Date(2021, 4, 30) },
     { title: "Toilent paper", price: 90.45, date: new Date(2021, 7, 18) },
     { title: "Candies", price: 23.4, date: new Date(2021, 6, 1) },
+    { title: "McDonals", price: 79.4, date: new Date(2021, 3, 26) }
   ];
 
   const addExpenseHandler = (expense) => {
