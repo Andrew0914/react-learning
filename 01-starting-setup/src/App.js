@@ -4,19 +4,19 @@ import NewExpense from "./components/newExpense/NewExpense";
 
 const DUMMY_EXPENSES = [
   {
-    id: "1a",
+    id: "11a",
     title: "Car insurance",
     amount: 100.1,
     date: new Date(2020, 4, 30),
   },
   {
-    id: "1b",
+    id: "11b",
     title: "Toilent paper",
     amount: 90.45,
     date: new Date(2021, 7, 18),
   },
-  { id: "1c", title: "Candies", amount: 23.4, date: new Date(2021, 6, 1) },
-  { id: "1d", title: "McDonals", amount: 79.4, date: new Date(2019, 3, 26) },
+  { id: "11c", title: "Candies", amount: 23.4, date: new Date(2021, 6, 1) },
+  { id: "11d", title: "McDonals", amount: 79.4, date: new Date(2019, 3, 26) },
 ];
 
 function App() {
