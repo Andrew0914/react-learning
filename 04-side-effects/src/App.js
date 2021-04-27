@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import Login from './components/Login/Login';
-import Home from './components/Home/Home';
-import MainHeader from './components/MainHeader/MainHeader';
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
+import MainHeader from "./components/MainHeader/MainHeader";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // We use "useEffect" to execute actions that does not depends on render o re-reder, and we do not want to
+  // re-execute after componente reevaluation
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("loggedIn") == 1);
+  }, []);
 
   const loginHandler = (email, password) => {
     // We should of course check email and password
     // But it's just a dummy/ demo anyways
+    localStorage.setItem("loggedIn", 1);
     setIsLoggedIn(true);
   };
 
   const logoutHandler = () => {
+    localStorage.setItem("loggedIn", 0);
     setIsLoggedIn(false);
   };
 
