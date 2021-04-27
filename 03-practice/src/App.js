@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 import Users from "./components/user/Users";
-
 
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <Users />
-    </div>
+    </React.Fragment>
   );
 }
 
