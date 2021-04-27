@@ -9,6 +9,7 @@ function App() {
   // We use "useEffect" to execute actions that does not depends on render o re-reder, and we do not want to
   // re-execute after componente reevaluation
   useEffect(() => {
+    // If we do not set dependencies, useEfect is just goint to execute once ad the beginning ⚠️
     setIsLoggedIn(localStorage.getItem("loggedIn") == 1);
   }, []);
 
