@@ -11,12 +11,17 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // Similar to a computed properties, when something change 🕹, 
+  // Similar to a computed properties, when something change 🕹,
   //it cab reaction to state change like un properties or state variables 📝
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes("@") && enteredPassword.trim().length > 6
-    );
+    const timeOutIdentifier = setTimeout(() => {
+      setFormIsValid(
+        enteredEmail.includes("@") && enteredPassword.trim().length > 6
+      );
+    }, 500);
+    return () => {
+      clearTimeout(timeOutIdentifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => setEnteredEmail(event.target.value);
