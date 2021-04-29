@@ -21,18 +21,6 @@ const passwordReducer = (state, action) => {
 };
 
 const Login = (props) => {
-  // Similar to a computed properties, when something change 🕹,
-  //it cab reaction to state change like un properties or state variables 📝
-  // useEffect(() => {
-  //   const timeOutIdentifier = setTimeout(() => {
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
-  //   return () => {
-  //     clearTimeout(timeOutIdentifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
     isValid: false,
@@ -59,9 +47,19 @@ const Login = (props) => {
     props.onLogin(emailState, passwordState);
   };
 
-  const formIsValid = () => {
-    return passwordState.isValid && emailState.isValid;
-  };
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+  const [formIsValid, setFormIsValid] = useState(false);
+  // Similar to a computed properties, when something change 🕹,
+  //it cab reaction to state change like un properties or state variables 📝
+  useEffect(() => {
+    const timeOutIdentifier = setTimeout(() => {
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+    return () => {
+      clearTimeout(timeOutIdentifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
 
   return (
     <Card className={classes.login}>
@@ -95,11 +93,7 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button
-            type="submit"
-            className={classes.btn}
-            disabled={!formIsValid()}
-          >
+          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
             Login
           </Button>
         </div>
