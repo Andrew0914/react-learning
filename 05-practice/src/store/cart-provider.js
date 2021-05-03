@@ -20,7 +20,6 @@ const cartReducer = (state, action) => {
   let updatedItems = new Array(...state.items);
   const itemid = action.item ? action.item.id : action.id;
   const item = state.items.find((item) => item.id === itemid);
-
   switch (action.type) {
     case "ADD_ITEM":
       if (item) {
