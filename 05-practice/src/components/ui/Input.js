@@ -1,13 +1,13 @@
-import classes from './Input.module.css'
-import Reacr from 'react'
+import classes from "./Input.module.css";
+import React from "react";
 
-const Input = props => {
+const Input = React.forwardRef((props, ref) => {
   return (
     <div className={classes.input}>
       <label htmlFor={props.input.id}>{props.label}</label>
-      <input id={props.input.id} {...props.input} />
+      <input id={props.input.id} {...props.input} ref={ref} />
     </div>
-  )
-}
+  );
+});
 
-export default Input
+export default Input;

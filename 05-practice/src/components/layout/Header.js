@@ -1,24 +1,20 @@
-import React, { useState } from "react"
+import React, { useContext } from "react";
 import HeaderCartButton from "./HeaderCartButton";
-import classes from "./Header.module.css"
-import mealsImage from "../../assets/meals.jpg"
+import classes from "./Header.module.css";
+import mealsImage from "../../assets/meals.jpg";
 
-
-
-
-const Header = props => {
-
+const Header = (props) => {
   return (
     <>
       <header className={classes.header}>
         <h1>React meals</h1>
-        <HeaderCartButton onClick={props.onShowCart}/>
+        <HeaderCartButton onClick={props.onShowCart} />
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="food-app" />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
