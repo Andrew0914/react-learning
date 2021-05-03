@@ -2,28 +2,54 @@ import { useReducer } from "react";
 import CartContext from "./cart-context";
 
 const defaultCartState = { items: [], totalAmount: 0 };
+
+const getTotalAmount = (items) => {
+  return items.reduce((total, item) => {
+    return (total += item.price * item.amount);
+  }, 0);
+};
+
+const updateItemAmount = (items, item, amount) => {
+  const updatedItem = { ...item };
+  updatedItem.amount += amount;
+  const updatedIndex = items.findIndex((item) => item.id === updatedItem.id);
+  return { updatedIndex, updatedItem };
+};
+
 const cartReducer = (state, action) => {
+  let updatedItems = new Array(...state.items);
+  const itemid = action.item ? action.item.id : action.id;
+  const item = state.items.find((item) => item.id === itemid);
+
   switch (action.type) {
     case "ADD_ITEM":
-      const item = state.items.find((item) => item.id === action.item.id);
-      let updatedItems = null;
       if (item) {
-        const updatedItem = { ...item };
-        updatedItem.amount += action.item.amount;
-        updatedItems = new Array(state.items);
-        const updatedIndex = updatedItems.findIndex(
-          (item) => item.id === updatedItem.id
+        const { updatedIndex, updatedItem } = updateItemAmount(
+          updatedItems,
+          item,
+          action.item.amount
         );
         updatedItems.splice(updatedIndex, 1, updatedItem);
       } else {
         updatedItems = state.items.concat({ ...action.item });
       }
+      return { items: updatedItems, totalAmount: getTotalAmount(updatedItems) };
+    case "REMOVE_ITEM":
+      if (item && item.amount > 1) {
+        const { updatedIndex, updatedItem } = updateItemAmount(
+          updatedItems,
+          item,
+          -1
+        );
+        updatedItems.splice(updatedIndex, 1, updatedItem);
+      } else if (item && item.amount === 1) {
+        const updatedIndex = updatedItems.findIndex((item) => {
+          return item.id === action.id;
+        });
+        updatedItems.splice(updatedIndex, 1);
+      }
 
-      const totalAmount = updatedItems.reduce((total, item) => {
-        return (total += item.price * item.amount);
-      }, 0);
-
-      return { items: updatedItems, totalAmount };
+      return { items: updatedItems, totalAmount: getTotalAmount(updatedItems) };
     default:
       return defaultCartState;
   }

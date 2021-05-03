@@ -10,7 +10,6 @@ const MealItemForm = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const amount = parseInt(amountRef.current.value.trim());
-    console.log(amount);
     if (amount < 1 || amount > 5) {
       setAmountIsValid(false);
       return;
