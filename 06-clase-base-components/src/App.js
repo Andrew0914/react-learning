@@ -1,7 +1,5 @@
-<<<<<<< HEAD:01-starting-setup/src/App.js
 import { useState } from "react";
-import Expenses from "./components/expenses/Expenses";
-import NewExpense from "./components/newExpense/NewExpense";
+import UserFinder from "./components/UserFinder";
 
 const DUMMY_EXPENSES = [
   {
@@ -19,9 +17,6 @@ const DUMMY_EXPENSES = [
   { id: "11c", title: "Candies", amount: 23.4, date: new Date(2021, 6, 1) },
   { id: "11d", title: "McDonals", amount: 79.4, date: new Date(2019, 3, 26) },
 ];
-=======
-import Users from './components/Users';
->>>>>>> 🍊 Initial commit class components:06-clase-base-components/src/App.js
 
 function App() {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
@@ -34,12 +29,7 @@ function App() {
 
   return (
     <div>
-<<<<<<< HEAD:01-starting-setup/src/App.js
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
-=======
-      <Users />
->>>>>>> 🍊 Initial commit class components:06-clase-base-components/src/App.js
+      <UserFinder />
     </div>
   );
 }
