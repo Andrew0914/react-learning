@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 
 const SimpleInput = (props) => {
   const [name, setName] = useState("");
-  const [nameIsValid, setNameIsValid] = useState(true)
+  const [nameIsValid, setNameIsValid] = useState(false);
+  const [nameIsTouched, setNameIsTouched] = useState(false);
   const nameInputRef = useRef();
 
   const nameChangeHandler = (event) => {
@@ -11,6 +12,7 @@ const SimpleInput = (props) => {
 
   const sutmitHandler = (event) => {
     event.preventDefault();
+    setNameIsTouched(true);
     if (name.trim() !== "") {
       console.log("From state:", name);
       console.log("From ref:", nameInputRef.current.value);
@@ -18,13 +20,16 @@ const SimpleInput = (props) => {
       // Reset
       setName("");
       // nameInputRef.current.value = ""; // bad practice ❌
-      setNameIsValid(true)
+      setNameIsValid(false);
+      setNameIsTouched(false);
     } else {
-      setNameIsValid(false)
+      setNameIsValid(false);
     }
   };
 
-  const nameInputClasses = nameIsValid ? "form-control" : "form-control invalid"
+  const nameInputClasses =
+    !nameIsValid && nameIsTouched ? "form-control invalid" : "form-control";
+
   return (
     <form onSubmit={sutmitHandler}>
       <div className={nameInputClasses}>
@@ -36,7 +41,9 @@ const SimpleInput = (props) => {
           value={name}
           onChange={nameChangeHandler}
         />
-        {!nameIsValid && <p>Name must not be empty</p>}
+        {!nameIsValid && nameIsTouched && (
+          <p className="error-text">Name must not be empty</p>
+        )}
       </div>
       <div className="form-actions">
         <button type="sub">Submit</button>
