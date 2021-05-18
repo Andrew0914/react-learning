@@ -16,6 +16,9 @@ const BasicForm = (props) => {
 
   const submitHanlder = (event) => {
     event.preventDefault();
+    nameInput.touch()
+    lastNameInput.touch()
+    emailInput.touch()
     if (!formIsVavlid) return;
     console.log({
       name: nameInput.value,
