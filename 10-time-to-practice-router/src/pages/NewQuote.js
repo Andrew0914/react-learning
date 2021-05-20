@@ -1,3 +1,8 @@
+import QuoteForm from "../components/quotes/QuoteForm";
 export function NewQuote() {
-  return <div>New quote</div>;
+  return (
+    <div>
+      <QuoteForm />
+    </div>
+  );
 }
