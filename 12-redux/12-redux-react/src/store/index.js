@@ -1,8 +1,9 @@
-import { createStore } from "redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialState = { counter: 0, showCounter: true };
 
+// sin slices es importante crear copis nuevas del estado y no mutar el real
+// con las toolkut si podemos mutar el estado directamente y ya las toolkit se arreglan de lo demas.
 const counterSlice = createSlice({
   name: "counter",
   initialState,
@@ -14,13 +15,20 @@ const counterSlice = createSlice({
       state.counter--;
     },
     increase(state, action) {
-      state.counter = state.counter + action.amount;
+      // los parametros extras siempre vendran en una propiedad "payload"
+      state.counter = state.counter + action.payload;
+    },
+    toggle(state) {
+      state.showCounter = !state.showCounter;
     },
   },
 });
 
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer },
+  reducer: counterSlice.reducer,
 });
+
+// los dispatch si se usan slices ahora son con estas acciones
+export const counterActions = counterSlice.actions;
 
 export default store;
