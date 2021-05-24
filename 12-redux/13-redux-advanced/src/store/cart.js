@@ -4,6 +4,7 @@ const initialState = {
   items: [],
   totalQuantity: 0,
   cartIsVisible: false,
+  notification: null,
 };
 
 const cartSlice = createSlice({
@@ -46,6 +47,13 @@ const cartSlice = createSlice({
         (acc, current) => acc + current.quantity,
         0
       );
+    },
+    showNotification(state, action) {
+      state.notification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message: action.payload.message,
+      };
     },
   },
 });
