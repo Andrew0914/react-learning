@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { FIREBASE_URL } from "../FIREBASE_SETTINGS";
 
 const initialState = {
   items: [],
@@ -57,5 +58,46 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const sendCartItemsData = (cartItems) => {
+  return (dispatch) => {
+    const sendCartItemsData = async () => {
+      dispatch(
+        cartSlice.actions.showNotification({
+          status: "pending",
+          title: "Sending...",
+          message: "Sending cart data!",
+        })
+      );
+
+      const response = await fetch(`${FIREBASE_URL}/cart.json`, {
+        method: "PUT",
+        body: JSON.stringify({ cartItems }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Something is wrong");
+      }
+
+      dispatch(
+        cartSlice.actions.showNotification({
+          status: "success",
+          title: "Success!",
+          message: "Sent cart data successfully!",
+        })
+      );
+    };
+
+    sendCartItemsData().catch((error) => {
+      dispatch(
+        cartSlice.actions.showNotification({
+          status: "error",
+          title: "Error!",
+          message: "Sending cart data failed!",
+        })
+      );
+    });
+  };
+};
 
 export default cartSlice;
