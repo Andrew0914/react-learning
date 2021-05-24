@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FIREBASE_URL } from "../FIREBASE_SETTINGS";
 
 const initialState = {
   items: [],
   totalQuantity: 0,
   cartIsVisible: false,
   notification: null,
+  changed: false,
 };
 
 const cartSlice = createSlice({
@@ -18,6 +18,7 @@ const cartSlice = createSlice({
     addItem(state, action) {
       const newItem = action.payload;
       const existingItem = state.items.find((item) => item.id === newItem.id);
+      state.changed = true;
       if (!existingItem) {
         state.items.push({
           id: newItem.id,
@@ -38,6 +39,7 @@ const cartSlice = createSlice({
     removeItem(state, action) {
       const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
+      state.changed = true;
       if (existingItem.quantity > 1) {
         existingItem.quantity -= 1;
       } else {
@@ -56,48 +58,14 @@ const cartSlice = createSlice({
         message: action.payload.message,
       };
     },
+    setCartItems(state, action) {
+      state.items = action.payload.cartItems;
+      state.totalQuantity = state.items.reduce(
+        (acc, current) => acc + current.quantity,
+        0
+      );
+    },
   },
 });
-
-export const sendCartItemsData = (cartItems) => {
-  return (dispatch) => {
-    const sendCartItemsData = async () => {
-      dispatch(
-        cartSlice.actions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data!",
-        })
-      );
-
-      const response = await fetch(`${FIREBASE_URL}/cart.json`, {
-        method: "PUT",
-        body: JSON.stringify({ cartItems }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Something is wrong");
-      }
-
-      dispatch(
-        cartSlice.actions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Sent cart data successfully!",
-        })
-      );
-    };
-
-    sendCartItemsData().catch((error) => {
-      dispatch(
-        cartSlice.actions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Sending cart data failed!",
-        })
-      );
-    });
-  };
-};
 
 export default cartSlice;
