@@ -23,7 +23,7 @@ const sortQuotes = (quotes, ascending) => {
   });
 };
 
-export function AllQuotes() {
+export default function AllQuotes() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const isAscending = queryParams.get("sort") === "asc";

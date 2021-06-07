@@ -1,4 +1,4 @@
-export function NotFount() {
+export default function NotFount() {
   return (
     <div className="centered">
       <p>Page not found! :v</p>
