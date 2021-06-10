@@ -24,7 +24,8 @@ function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
-export async function getStaticProps() {
+// this si re-render every request to the server
+export async function getServerSideProps() {
   // fetch data from API
   return {
     props: {
@@ -32,5 +33,16 @@ export async function getStaticProps() {
     },
   };
 }
+
+// this re-render oncer unless you revalidate every (time seconds)
+// export async function getStaticProps() {
+//   // fetch data from API
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     revalidate: 1
+//   };
+// }
 
 export default HomePage;
