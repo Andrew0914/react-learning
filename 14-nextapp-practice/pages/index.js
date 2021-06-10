@@ -25,7 +25,8 @@ function HomePage(props) {
 }
 
 // this si re-render every request to the server
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  console.log(context)
   // fetch data from API
   return {
     props: {
