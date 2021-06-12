@@ -2,3 +2,5 @@
 **/*/.firebaserc
 **/*/firebase.json
 **/*/build
+**/*/.next
+*/**/mongodb.config.js
