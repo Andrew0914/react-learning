@@ -1,10 +1,18 @@
+import Head from "next/head";
 import { MongoClient } from "mongodb";
-
 import MeetupList from "../components/meetups/MeetupList";
 import { mong_str_connection } from "../mongodb.config";
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>React meetups</title>
+        <meta name="description" content="Brows a huge list of meetups" />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 }
 
 // export async function getServerSideProps(context) {
